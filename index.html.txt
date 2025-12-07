@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catálogo de productos Elofertazo - Las mejores ofertas de Cristal Uruguay. Encuentra productos de calidad a precios increíbles.">
+    <meta name="keywords" content="catálogo, ofertas, productos, Cristal Uruguay, compras, descuentos, Elofertazo">
+    <meta name="author" content="Elofertazo">
+    <meta property="og:title" content="Catálogo de Productos Elofertazo">
+    <meta property="og:description" content="Las mejores ofertas en Cristal Uruguay. Productos de calidad a precios increíbles.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elofertazo.com">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/891/891419.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Catálogo de Productos Elofertazo">
+    <meta name="twitter:description" content="Las mejores ofertas en Cristal Uruguay">
+    
+    <title>Catálogo de Productos Elofertazo</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <style type="text/css">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            background-color: #f8f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Estilos para modales */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+        
+        .modal-content {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Banner fijo */
+        .fixed-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Ajuste contenido principal */
+        .content-with-banner {
+            padding-top: 120px;
+        }
+        
+        /* Galería de imágenes */
+        .image-thumbnail {
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .image-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        
+        .image-thumbnail.active {
+            border-color: #ee8c2b !important;
+            border-width: 2px !important;
+        }
+        
+        /* Clase para modal con espacio superior */
+        .modal-with-margin {
+            margin-top: 80px;
+            max-height: calc(90vh - 80px);
+        }
+        
+        /* Estilo para botón de cerrar flotante */
+        .close-modal-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Estilos para notificaciones */
+        .notification-toast {
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+        
+        /* Estilos para productos */
+        .product-image {
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner Fijo -->
+    <div class="fixed-banner bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 px-4 py-3">
+        <div class="flex items-center justify-center gap-3">
+            <div class="bg-white/20 p-2 rounded-full">
+                <span class="material-symbols-outlined text-white text-2xl">shopping_bag</span>
+            </div>
+            <div>
+                <h2 class="text-white text-xl font-bold tracking-wide text-center">CRISTAL URUGUAY</h2>
+                <p class="text-white/90 text-sm text-center mt-1">Las mejores ofertas</p>
+            </div>
+            <div class="bg-white/20 p-2 rounded-full">
+                <span class="material-symbols-outlined text-white text-2xl">local_offer</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="sticky top-16 z-20 flex items-center justify-between bg-white/90 p-4 pb-2 backdrop-blur-sm border-b border-gray-200">
+        <div class="flex size-12 shrink-0 items-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/891/891419.png" alt="Logo Elofertazo" class="h-10 w-10" />
+        </div>
+        <h1 class="text-xl font-bold leading-tight flex-1 text-center text-gray-900">Catálogo</h1>
+        <div class="flex w-12 items-center justify-end">
+            <button id="cart-button" class="relative flex items-center justify-center rounded-full h-12 w-12 hover:bg-gray-100 transition-colors">
+                <span class="material-symbols-outlined text-3xl text-gray-900">shopping_cart</span>
+                <span id="cart-count" class="absolute top-2 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">0</span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Modal del Producto -->
+    <div id="product-modal" class="fixed inset-0 z-50 modal-overlay flex items-start justify-center p-4 hidden">
+        <div class="modal-content bg-white rounded-xl max-w-lg w-full modal-with-margin shadow-2xl overflow-hidden flex flex-col relative">
+            <!-- Botón de cerrar flotante -->
+            <button id="close-modal" class="close-modal-btn bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors">
+                <span class="material-symbols-outlined text-2xl text-gray-900">close</span>
+            </button>
+            <div id="modal-content" class="flex-1 overflow-y-auto p-4 pt-8">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal del Carrito -->
+    <div id="cart-modal" class="fixed inset-0 z-50 modal-overlay flex items-start justify-center p-4 hidden">
+        <div class="modal-content bg-white rounded-xl max-w-md w-full modal-with-margin shadow-2xl overflow-hidden flex flex-col relative">
+            <!-- Botón de cerrar flotante -->
+            <button id="close-cart-modal" class="close-modal-btn bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors">
+                <span class="material-symbols-outlined text-2xl text-gray-900">close</span>
+            </button>
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center pt-12">
+                <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    Tu Carrito
+                </h3>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-4">
+                <div id="empty-cart-message" class="text-center py-8 text-gray-500">
+                    <span class="material-symbols-outlined text-4xl mb-2">shopping_cart</span>
+                    <p class="mb-4">Tu carrito está vacío</p>
+                    <p class="text-sm">¡Agrega productos para comenzar!</p>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-gray-900 font-medium">Total:</span>
+                    <span id="cart-total" class="text-xl font-bold text-orange-500">$U 0</span>
+                </div>
+                <div class="flex gap-2 mb-4">
+                    <button id="clear-cart-button" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                        <span class="material-symbols-outlined text-lg">delete</span>
+                        Vaciar Carrito
+                    </button>
+                    <button id="checkout-button" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                        <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.94a16,16,0,0,0,20.23,20.23l34.06-11.35A104,104,0,1,0,128,24Zm40.45,123.55-2.22,3.84-3.84,2.22a8,8,0,0,1-10.79-1.3l-18-18a8,8,0,0,1-1.3-10.79l2.22-3.84,3.84-2.22a8,8,0,0,1,10.79,1.3l18,18A8,8,0,0,1,168.45,147.55ZM96.83,112.55l18,18a8,8,0,0,1,1.3,10.79l-2.22,3.84-3.84,2.22a8,8,0,0,1-10.79-1.3l-18-18a8,8,0,0,1-1.3-10.79l2.22-3.84,3.84-2.22A8,8,0,0,1,96.83,112.55Z"></path>
+                        </svg>
+                        Comprar
+                    </button>
+                </div>
+                <div class="text-xs text-center text-gray-500">Al finalizar la compra, serás dirigido a WhatsApp para confirmar tu pedido</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Grid de Productos -->
+    <main class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 content-with-banner" id="product-grid">
+        <!-- Los productos se cargarán aquí dinámicamente -->
+    </main>
+    
+    <!-- Plantilla para Productos -->
+    <template id="product-template">
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <div class="product-image h-48 bg-gray-200" data-product-id=""></div>
+            <div class="p-3">
+                <h3 class="product-name font-bold text-gray-900 mb-1 truncate"></h3>
+                <p class="product-price text-xl font-bold text-orange-500 mb-3"></p>
+                <button class="add-to-cart w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                    Agregar al carrito
+                </button>
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        // ==============================================
+        // CONFIGURACIÓN DE PRODUCTOS - EDITAR AQUÍ
+        // ==============================================
+        
+        const products = [
+            {
+                id: 1,
+                name: "Progresivo Japonés Liso Pro Ultra 7D",
+                price: 1290,
+                description: "Progresivo Japonés Liso Pro Ultra 7D, lo más nuevo del mercado. Calidad premium con garantía.",
+                images: [
+                    "https://i.ibb.co/ymfzyZPn/IMG-20251206-153525.jpg",
+                    "https://i.ibb.co/ymfzyZPn/IMG-20251206-153525.jpg",
+                    "https://i.ibb.co/ymfzyZPn/IMG-20251206-153525.jpg"
+                ]
+            },
+            {
+                id: 2,
+                name: "Progresivo Cristal",
+                price: 1100,
+                description: "Progresivo Cristal, frasco de 1 litro, el mejor sin dudas.",
+                images: [
+                    "https://i.ibb.co/tTH3hqL7/images-4.jpg",
+                    "https://i.ibb.co/wfhZPxR/images-6.jpg",
+                    "https://i.ibb.co/PzbQgDtt/images-5.jpg"
+                ]
+            },
+            {
+                id: 3,
+                name: "Planchita Soling Munique SLG 250°c/480°f",
+                price: 4500,
+                description: "Planchita de pelo Soling Munique SLG, llegando al mercado y compitiendo con las mejores del mercado, 250°c/480°f.",
+                images: [
+                    "https://i.ibb.co/G45Q9yKQ/IMG-20251206-224742.jpg",
+                    "https://i.ibb.co/YFyP1227/soling-prancha4-215dfe8059794c37bd17262450147578-1024-1024.jpg",
+                    "https://i.ibb.co/k2XPc35M/IMG-20251206-231214.jpg"
+                ]
+            },
+            {
+                id: 4,
+                name: "Planchita Lizze Extreme",
+                price: 5290,
+                description: "Planchita Lizze Extreme en oferta, 250°c/480°f.",
+                images: [
+                    "https://i.ibb.co/wFJK8QLM/images.jpg",
+                    "https://i.ibb.co/v47LQbvQ/descarga-7.jpg",
+                    "https://i.ibb.co/CpS169hQ/descarga-8.jpg"
+                ]
+            },
+            {
+                id: 5,
+                name: "Secador Lizze Extreme 2400w",
+                price: 5690,
+                description: "Secador de pelo Lizze Extreme de 2400 watts de Potencia, con 2 punteras",
+                images: [
+                    "https://i.ibb.co/zT2xcrcL/images-7.jpg",
+                    "https://i.ibb.co/yBmCT0Ns/descarga-9.jpg",
+                    "https://i.ibb.co/0x7Ncsk/IMG-20251206-232945.jpg"
+                ]
+            },
+            {
+                id: 6,
+                name: "Secador Soling Dubai 2500w",
+                price: 4720,
+                description: "Secador Soling Dubai de 2500 watts de Potencia.",
+                images: [
+                    "https://i.ibb.co/67JyFpPn/D-NQ-NP-900985-MLA85244151763-052025-O.webp",
+                    "https://i.ibb.co/fG4dk6bR/Secador-DUBAI-220-V-CINZA-1-scaled-600x602.jpg",
+                    "https://i.ibb.co/fd7598FH/IMG-20250721-140007.png"
+                ]
+            },
+            {
+                id: 7,
+                name: "Secador Soling Munique 2000w",
+                price: 3990,
+                description: "Secador Soling Munique de 2000 watts de Potencia.",
+                images: [
+                    "https://i.ibb.co/N27sXxZS/IMG-20251206-234403.jpg",
+                    "https://i.ibb.co/M5sSdysh/01-secador-de-cabelo-soling-slg-black-2000w-220v.jpg",
+                    "https://i.ibb.co/q3GBJ3m0/D-NQ-NP-823913-MLU74860363705-032024-O.webp"
+                ]
+            }
+        ];
+        
+        // ==============================================
+        // VARIABLES GLOBALES
+        // ==============================================
+        
+        let cart = JSON.parse(localStorage.getItem('elofertazo_cart')) || {};
+        const productGrid = document.getElementById('product-grid');
+        const productTemplate = document.getElementById('product-template');
+        const cartModal = document.getElementById('cart-modal');
+        const productModal = document.getElementById('product-modal');
+        const cartButton = document.getElementById('cart-button');
+        const closeCartModal = document.getElementById('close-cart-modal');
+        const closeModal = document.getElementById('close-modal');
+        const checkoutButton = document.getElementById('checkout-button');
+        const clearCartButton = document.getElementById('clear-cart-button');
+        const cartCount = document.getElementById('cart-count');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const modalContent = document.getElementById('modal-content');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        
+        // Variables para control de historial
+        let isModalOpen = false;
+        let currentProductId = null;
+        
+        // ==============================================
+        // FUNCIONES PRINCIPALES
+        // ==============================================
+        
+        // Cargar productos en la página
+        function loadProducts() {
+            productGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productElement = productTemplate.content.cloneNode(true);
+                
+                // Configurar imagen principal
+                const imageDiv = productElement.querySelector('.product-image');
+                imageDiv.style.backgroundImage = `url('${product.images[0]}')`;
+                imageDiv.dataset.productId = product.id;
+                
+                // Configurar nombre y precio
+                productElement.querySelector('.product-name').textContent = product.name;
+                productElement.querySelector('.product-price').textContent = `$U ${product.price.toLocaleString()}`;
+                
+                // Configurar botón "Agregar al carrito"
+                const addToCartBtn = productElement.querySelector('.add-to-cart');
+                addToCartBtn.dataset.productId = product.id;
+                
+                productGrid.appendChild(productElement);
+            });
+        }
+        
+        // Actualizar contador del carrito
+        function updateCartCount() {
+            let totalItems = 0;
+            Object.values(cart).forEach(item => {
+                totalItems += item.quantity;
+            });
+            cartCount.textContent = totalItems;
+            localStorage.setItem('elofertazo_cart', JSON.stringify(cart));
+        }
+        
+        // Mostrar productos en el carrito
+        function renderCartItems() {
+            cartItems.innerHTML = '';
+            
+            if (Object.keys(cart).length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartTotal.textContent = '$U 0';
+                return;
+            }
+            
+            emptyCartMessage.classList.add('hidden');
+            let totalPrice = 0;
+            
+            Object.values(cart).forEach(item => {
+                totalPrice += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex items-center justify-between py-3 border-b border-gray-200';
+                cartItem.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="h-12 w-12 bg-cover bg-center rounded" style="background-image: url('${item.image}')"></div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">${item.name}</h4>
+                            <p class="text-sm text-gray-500">$U ${item.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="decrease-quantity w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors" data-id="${item.id}">-</button>
+                        <span class="w-8 text-center font-medium">${item.quantity}</span>
+                        <button class="increase-quantity w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center hover:bg-orange-600 transition-colors" data-id="${item.id}">+</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            cartTotal.textContent = `$U ${totalPrice.toLocaleString()}`;
+            
+            // Agregar event listeners a los botones de cantidad
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = e.target.closest('button').dataset.id;
+                    addToCart(productId);
+                });
+            });
+            
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = e.target.closest('button').dataset.id;
+                    decreaseQuantity(productId);
+                });
+            });
+        }
+        
+        // Agregar producto al carrito
+        function addToCart(productId) {
+            const product = products.find(p => p.id == productId);
+            
+            if (!product) return;
+            
+            if (cart[productId]) {
+                cart[productId].quantity += 1;
+            } else {
+                cart[productId] = {
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.images[0],
+                    quantity: 1
+                };
+            }
+            
+            updateCartCount();
+            renderCartItems();
+            
+            // Mostrar notificación
+            showNotification(`${product.name} agregado al carrito`);
+        }
+        
+        // Disminuir cantidad en el carrito
+        function decreaseQuantity(productId) {
+            if (cart[productId]) {
+                cart[productId].quantity -= 1;
+                
+                if (cart[productId].quantity <= 0) {
+                    delete cart[productId];
+                }
+                
+                updateCartCount();
+                renderCartItems();
+            }
+        }
+        
+        // Mostrar modal del producto
+        function showProductModal(productId) {
+            const product = products.find(p => p.id == productId);
+            
+            if (!product) return;
+            
+            // Guardar estado del modal
+            isModalOpen = true;
+            currentProductId = productId;
+            
+            // Agregar estado al historial
+            history.pushState({ modalOpen: true, productId: productId }, '', `#product-${productId}`);
+            
+            // Construir galería de imágenes
+            let galleryHTML = '';
+            if (product.images.length > 1) {
+                galleryHTML = `
+                    <div class="mt-4">
+                        <div class="flex gap-2">
+                            ${product.images.map((img, index) => `
+                                <div class="image-thumbnail w-16 h-16 rounded-lg ${index === 0 ? 'active border-2 border-orange-500' : 'border border-gray-300'}" 
+                                     style="background-image: url('${img}')"
+                                     data-image-index="${index}">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            modalContent.innerHTML = `
+                <div class="flex flex-col gap-4">
+                    <div id="main-product-image" class="h-[280px] w-full bg-cover bg-center rounded-lg" style="background-image: url('${product.images[0]}')"></div>
+                    
+                    ${galleryHTML}
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h3>
+                        <p class="text-gray-600 mb-4">${product.description}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-orange-500">$U ${product.price.toLocaleString()}</span>
+                            <button class="add-to-cart-modal bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors" data-product-id="${productId}">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            productModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Agregar event listener al botón del modal
+            document.querySelector('.add-to-cart-modal').addEventListener('click', () => {
+                addToCart(productId);
+                closeProductModal();
+            });
+            
+            // Event listeners para miniaturas de imágenes
+            if (product.images.length > 1) {
+                document.querySelectorAll('.image-thumbnail').forEach(thumbnail => {
+                    thumbnail.addEventListener('click', (e) => {
+                        const imageIndex = e.target.dataset.imageIndex || e.target.parentElement.dataset.imageIndex;
+                        const imageUrl = product.images[imageIndex];
+                        
+                        // Cambiar la imagen principal
+                        document.getElementById('main-product-image').style.backgroundImage = `url('${imageUrl}')`;
+                        
+                        // Actualizar clases activas
+                        document.querySelectorAll('.image-thumbnail').forEach(t => {
+                            t.classList.remove('active', 'border-2', 'border-orange-500');
+                            t.classList.add('border', 'border-gray-300');
+                        });
+                        
+                        e.target.classList.add('active', 'border-2', 'border-orange-500');
+                        e.target.classList.remove('border', 'border-gray-300');
+                    });
+                });
+            }
+        }
+        
+        // Cerrar modal del producto
+        function closeProductModal() {
+            productModal.classList.add('hidden');
+            isModalOpen = false;
+            currentProductId = null;
+            document.body.style.overflow = 'auto';
+            
+            // Limpiar el hash de la URL si estamos en el estado del modal
+            if (window.location.hash.includes('product-')) {
+                history.pushState(null, '', window.location.pathname + window.location.search);
+            }
+        }
+        
+        // Cerrar modal del carrito
+        function closeCartModalFunc() {
+            cartModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Manejar botón atrás del navegador
+        function handleBackButton() {
+            if (isModalOpen) {
+                if (productModal.classList.contains('hidden') === false) {
+                    closeProductModal();
+                    return true;
+                }
+                if (cartModal.classList.contains('hidden') === false) {
+                    closeCartModalFunc();
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // Vaciar carrito
+        function clearCart() {
+            if (Object.keys(cart).length === 0) {
+                showNotification('El carrito ya está vacío');
+                return;
+            }
+            
+            if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+                cart = {};
+                updateCartCount();
+                renderCartItems();
+                showNotification('Carrito vaciado');
+            }
+        }
+        
+        // Abrir WhatsApp para finalizar compra
+        function openWhatsApp() {
+            if (Object.keys(cart).length === 0) {
+                showNotification('Tu carrito está vacío');
+                return;
+            }
+            
+            let message = "¡Hola! Quiero realizar una compra en Elofertazo:\n\n";
+            let total = 0;
+            
+            Object.values(cart).forEach(item => {
+                message += `• ${item.name} x${item.quantity} - $U ${(item.price * item.quantity).toLocaleString()}\n`;
+                total += item.price * item.quantity;
+            });
+            
+            message += `\nTotal: $U ${total.toLocaleString()}`;
+            message += "\n\nPor favor, confírmame disponibilidad y formas de pago.";
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/59897230315?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        // Mostrar notificación
+        function showNotification(message) {
+            const existingNotification = document.querySelector('.notification-toast');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification-toast fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-2';
+            notification.innerHTML = `
+                <span class="material-symbols-outlined">check_circle</span>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // ==============================================
+        // EVENT LISTENERS
+        // ==============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cargar productos
+            loadProducts();
+            updateCartCount();
+            renderCartItems();
+            
+            // Abrir modal del producto al hacer clic en la imagen
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.product-image')) {
+                    const productId = e.target.closest('.product-image').dataset.productId;
+                    showProductModal(productId);
+                }
+            });
+            
+            // Agregar producto al carrito desde el botón en la card
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.add-to-cart')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const productId = e.target.closest('.add-to-cart').dataset.productId;
+                    addToCart(productId);
+                }
+            });
+            
+            // Abrir modal del carrito
+            cartButton.addEventListener('click', () => {
+                renderCartItems();
+                cartModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                isModalOpen = true;
+            });
+            
+            // Cerrar modales
+            closeCartModal.addEventListener('click', closeCartModalFunc);
+            closeModal.addEventListener('click', closeProductModal);
+            
+            // Cerrar modales al hacer clic fuera de ellos
+            [cartModal, productModal].forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        if (modal === productModal) {
+                            closeProductModal();
+                        } else {
+                            closeCartModalFunc();
+                        }
+                    }
+                });
+            });
+            
+            // Vaciar carrito
+            clearCartButton.addEventListener('click', clearCart);
+            
+            // Finalizar compra
+            checkoutButton.addEventListener('click', openWhatsApp);
+            
+            // Cerrar modales con Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (productModal.classList.contains('hidden') === false) {
+                        closeProductModal();
+                    } else if (cartModal.classList.contains('hidden') === false) {
+                        closeCartModalFunc();
+                    }
+                }
+            });
+            
+            // Manejar botón atrás del navegador
+            window.addEventListener('popstate', (e) => {
+                if (!handleBackButton() && isModalOpen) {
+                    // Si no se manejó el back button pero hay modal abierto, forzar cierre
+                    closeProductModal();
+                    closeCartModalFunc();
+                }
+            });
+            
+            // Verificar si hay un hash en la URL al cargar (para compatibilidad con marcadores)
+            if (window.location.hash.includes('product-')) {
+                const productId = window.location.hash.replace('#product-', '');
+                const product = products.find(p => p.id == productId);
+                if (product) {
+                    setTimeout(() => {
+                        showProductModal(productId);
+                    }, 100);
+                }
+            }
+        });
+    </script>
+    
+    <!-- Script para ocultar banner del host -->
+    <script>
+        (function() {
+            function hideHostBanner() {
+                const hostBanner = document.getElementById('selfpromotionOverlay');
+                if (hostBanner) {
+                    hostBanner.style.display = 'none';
+                    document.body.style.paddingTop = '0';
+                }
+                setTimeout(hideHostBanner, 1000);
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', hideHostBanner);
+            } else {
+                hideHostBanner();
+            }
+        })();
+    </script>
+</body>
+</html>
